@@ -106,11 +106,10 @@ const DashboardPage = () => {
               key={c}
               type="button"
               onClick={() => { setCategory(c); setPage(1) }}
-              className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
-                category === c
+              className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${category === c
                   ? 'bg-indigo-600 text-white'
                   : 'bg-white text-slate-600 border border-slate-300 hover:bg-slate-50'
-              }`}
+                }`}
             >
               {c}
             </button>
@@ -126,45 +125,82 @@ const DashboardPage = () => {
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product) => (
-              <div key={product._id} className="rounded-2xl bg-white p-5 shadow-sm border border-slate-200">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <span className="inline-block rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
-                      {product.category}
-                    </span>
-                    <h3 className="mt-2 font-semibold text-slate-900">{product.name}</h3>
-                  </div>
-                  <span className="whitespace-nowrap font-bold text-slate-900">₹{product.price}</span>
-                </div>
-
-                {product.description && (
-                  <p className="mt-2 line-clamp-2 text-sm text-slate-500">{product.description}</p>
-                )}
-
-                <div className="mt-3 flex items-center justify-between">
-                  <span className={`text-xs font-medium ${product.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                    {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
-                  </span>
-                  {product.createdBy?.name && (
-                    <span className="text-xs text-slate-400">by {product.createdBy.name}</span>
+              <div
+                key={product._id}
+                className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+              >
+                {/* Product Image */}
+                <div className="h-48 w-full bg-slate-100">
+                  {product.imageUrl ? (
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-sm text-slate-400">
+                      No image
+                    </div>
                   )}
                 </div>
 
-                <div className="mt-4 flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => openEditModal(product)}
-                    className="flex-1 rounded-lg border border-slate-300 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(product)}
-                    className="flex-1 rounded-lg border border-red-200 py-1.5 text-xs font-medium text-red-600 transition hover:bg-red-50"
-                  >
-                    Delete
-                  </button>
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <span className="inline-block rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                        {product.category}
+                      </span>
+
+                      <h3 className="mt-2 font-semibold text-slate-900">
+                        {product.name}
+                      </h3>
+                    </div>
+
+                    <span className="whitespace-nowrap font-bold text-slate-900">
+                      ₹{product.price}
+                    </span>
+                  </div>
+
+                  {product.description && (
+                    <p className="mt-2 line-clamp-2 text-sm text-slate-500">
+                      {product.description}
+                    </p>
+                  )}
+
+                  <div className="mt-3 flex items-center justify-between">
+                    <span
+                      className={`text-xs font-medium ${product.stock > 0 ? "text-green-600" : "text-red-500"
+                        }`}
+                    >
+                      {product.stock > 0
+                        ? `${product.stock} in stock`
+                        : "Out of stock"}
+                    </span>
+
+                    {product.createdBy?.name && (
+                      <span className="text-xs text-slate-400">
+                        by {product.createdBy.name}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-4 flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => openEditModal(product)}
+                      className="flex-1 rounded-lg border border-slate-300 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(product)}
+                      className="flex-1 rounded-lg border border-red-200 py-1.5 text-xs font-medium text-red-600 transition hover:bg-red-50"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

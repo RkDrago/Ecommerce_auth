@@ -30,7 +30,7 @@ const RegisterPage = () => {
       return
     }
 
-    const result = dispatch(registerUser(formData))
+    const result = await dispatch(registerUser(formData))
     if (registerUser.fulfilled.match(result)) {
       setRegistered(true)
     }

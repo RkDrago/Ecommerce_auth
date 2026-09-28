@@ -10,7 +10,10 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(cors({ origin: config.CLIENT_ORIGIN, credentials: true, }))
+app.use(cors({
+    origin: config.CLIENT_ORIGIN,
+    credentials: true,
+}))
 
 // health check
 app.get('/api', (req, res) => {
